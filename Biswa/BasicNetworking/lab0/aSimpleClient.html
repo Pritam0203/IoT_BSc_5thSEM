@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Basic</title>
+</head>
+<body>
+    <script>
+        const ws = new WebSocket('wss://ws.ifelse.io');
+        
+        ws.onopen = function(event) {
+            console.log('Connection open!');
+            ws.send('Hello, WebSocket!');
+        };
+
+        ws.onmessage = function(event) {
+            console.log('Received:', event.data);
+            ws.close();
+        };
+
+        ws.onclose = function(event) {
+            console.log('Connection closed.');
+        };
+
+        ws.onerror = function(error) {
+            console.error('Error occurred:', error);
+        };
+    </script>
+</body>
+</html>
