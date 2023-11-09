@@ -1,0 +1,142 @@
+[
+    {
+        "id": "1ddef97b3d66c635",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "32f91e39e08ae151",
+        "type": "serial in",
+        "z": "1ddef97b3d66c635",
+        "name": "Arduino",
+        "serial": "2c4e4aa97913f3a3",
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "debd92c73c85c934"
+            ]
+        ]
+    },
+    {
+        "id": "debd92c73c85c934",
+        "type": "function",
+        "z": "1ddef97b3d66c635",
+        "name": "DHT11 Data Transform",
+        "func": "m = msg.payload.split(',');\nH = { payload: parseFloat(m[0]) };\nT = { payload: parseFloat(m[1]) };\n\nreturn [H, T];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 5,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 180,
+        "wires": [
+            [
+                "ca2838e7c9c3464a"
+            ],
+            [
+                "2227176e573f7a05"
+            ]
+        ]
+    },
+    {
+        "id": "ca2838e7c9c3464a",
+        "type": "ui_gauge",
+        "z": "1ddef97b3d66c635",
+        "name": "",
+        "group": "872abcc4042a3a9e",
+        "order": 0,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "units",
+        "format": "{{value}}%",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 690,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "2227176e573f7a05",
+        "type": "ui_gauge",
+        "z": "1ddef97b3d66c635",
+        "name": "",
+        "group": "872abcc4042a3a9e",
+        "order": 1,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "units",
+        "format": "{{value}}°C",
+        "min": 0,
+        "max": 10,
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 700,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "2c4e4aa97913f3a3",
+        "type": "serial-port",
+        "serialport": "COM3",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "872abcc4042a3a9e",
+        "type": "ui_group",
+        "name": "DHT22",
+        "tab": "f9ebbe584a2fd90a",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f9ebbe584a2fd90a",
+        "type": "ui_tab",
+        "name": "Humidity/Temperature",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
