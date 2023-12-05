@@ -1,0 +1,29 @@
+}
+
+void loop() {
+  // Trigger ultrasonic sensor
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // Read the duration of the echo pulse
+  long duration = pulseIn(echoPin, HIGH);
+
+  // Calculate distance in centimeters
+  int distance = duration * 0.034 / 2;
+
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  // Turn on/off LED based on distance
+  if (distance < 30) {
+    digitalWrite(ledPin, HIGH); // Turn on LED
+  } else {
+    digitalWrite(ledPin, LOW);  // Turn off LED
+  }
+
+  delay(1000); // Adjust the delay based on your requirements
+}
