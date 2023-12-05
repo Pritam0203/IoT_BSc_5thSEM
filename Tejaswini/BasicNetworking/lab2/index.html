@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.io Room Chat</title>
+</head>
+<body>
+
+Select Room: 
+<select id="room">
+    <option value="room1">Room 1</option>
+    <option value="room2">Room 2</option>
+    <!-- Add more rooms as desired -->
+</select>
+
+<input type="text" id="message">
+<button onclick="sendMessage()">Send</button>
+
+<div id="chat"></div>
+
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+<script>
+    const socket = io();
+
+    const roomSelect = document.getElementById('room');
+    const currentRoom = { value: roomSelect.value };
+
+    socket.emit('join', currentRoom.value);
+
+    roomSelect.addEventListener('change', (e) => {
+        socket.emit('leave', currentRoom.value);
+        socket.emit('join', e.target.value);
+        currentRoom.value = e.target.value;
+    });
+
+    socket.on('message', (data) => {
+        const chatDiv = document.getElementById('chat');
+        chatDiv.innerHTML += `<p>${data}</p>`;
+    });
+
+    function sendMessage() {
+        const message = document.getElementById('message').value;
+        const room = document.getElementById('room').value;
+        socket.emit('message', { room, msg: message });
+        document.getElementById('message').value = '';
+    }
+</script>
+
+</body>
+</html>
